@@ -1,0 +1,25 @@
+{
+    "title": "Blockchain Blogs",
+    "subtitle": "A-Z of blockhain",
+    "owner": {
+      "name": "Dev3 Tools",
+      "email": "sauravnk30@gmail.com"
+    },
+    "social": {
+      "github": "SauravKanchan",
+      "medium": "sauravnk30",
+      "twitter": "sauravnk30"
+    },
+    "seo": {
+      "title": "Blockchain Blogs",
+      "description": "desc",
+      "author": "Dev3 Tools",
+      "keywords": [
+        "blockchain",
+        "ethereum",
+        "web3",
+        "solidity"
+      ]
+    },
+    "cname": "dev3.tools"
+  }
