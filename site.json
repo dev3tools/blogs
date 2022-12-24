@@ -5,6 +5,10 @@
       "name": "Dev3 Tools",
       "email": "sauravnk30@gmail.com"
     },
+    "newsletter": {
+        "currentCount": "2,000",
+        "revueUsername": "roadmapsh"
+    },
     "social": {
       "github": "SauravKanchan",
       "medium": "sauravnk30",
@@ -21,5 +25,5 @@
         "solidity"
       ]
     },
-    "cname": "dev3.tools"
+    "cname": "kamranahmed.info"
   }
