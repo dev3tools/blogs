@@ -25,5 +25,6 @@
         "solidity"
       ]
     },
-    "cname": "dev3.tools"
+    "cname": "dev3.tools",
+    "baseUrl": "blogs/"
   }
