@@ -21,4 +21,4 @@ Click on the contracts folder and then click on the new file button on top right
      alt="New file"/>
 
 
-test log
+test logasdf
