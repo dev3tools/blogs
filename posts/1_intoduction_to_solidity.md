@@ -6,4 +6,4 @@ permalink: basics/intro/
 
 ## Welcome to basics of solidity
 
-asdf
+test new actions
