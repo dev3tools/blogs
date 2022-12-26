@@ -48,3 +48,5 @@ contract Counter {
 ```
 
 Here contract is kind of a class where we can define various functions inside it and we can also inherit from other contracts
+
+test highlight
