@@ -1,8 +1,68 @@
 ---
-title: 2. Arrays and mapping
-date: 2022-12-27
+title: 3. Arrays and mapping
+date: 2022-12-28
 permalink: basics/arrays_and_mapping/
 ---
 
 In this section we will learn how to use arrays and mapping in smart contract. 
 ## Arrays
+
+There two main types of arrays in Solidity are the fixed-size array and the dynamic-sized array. Fixed-size arrays are passed by value and dynamic-sized arrays are passed by reference
+
+#### Defining an array
+```solidity
+string[5] public fixedArray;  // fixed array
+uint[] public dynamicArray; // dynamic array
+```
+
+#### Adding values into array
+```solidity
+function add(string memory fix, uint dynamic) public {
+    // storing values of fixed array
+    fixedArray[0] = fix;
+    fixedArray[1] = "some";
+    fixedArray[2] = "random";
+    fixedArray[3] = "value";
+
+    // storing value of dynamic array
+    dynamicArray.push(dynamic);
+    // push method only works with dynamic array and not fixed array
+}
+```
+
+#### Initializing array with default values
+```solidity
+string[3] fixedArray = ["a", "b", "c"]; // Fixed sized string array
+fixedArray.push("abc"); // Won't work for fixed size arrays.
+
+String[] dynamicArray =["chainlink", "oracles"]; /// Dynamic sized array
+dynamicArray.push("rocks");  // Works.
+```
+
+#### Length of an array
+```solidity
+String[] dynamicArray =["chainlink", "oracles"]; /// Dynamic sized array
+
+uint length = dynamicArray.length // this will store length of an array, which is 2 in our case
+```
+
+#### Delete an element
+We have `delete` keyword in solidity, but it's kind of misleading, instead of deleting the element what it does is it replaces the value by `ZeroValue`
+
+Example:
+```
+String[] dynamicArray =["chainlink", "oracles"]; /// Dynamic sized array
+
+delete dynamicArray[0]
+```
+
+Now instead of deleting the element here what it does is replace `"chainlink"` value with `""`. And array length also remains unchanged i.e 2
+
+## Mapping
+It lets you to store values in a key-value fashion. It is similar to hashtables, dictionaries or JavaScript objects and maps, but with a little less functionality. There are restrictions on the kinds of data types you can have as keys, which you can read about [here](https://docs.soliditylang.org/en/v0.8.17/types.html#mapping-types). The data types associated with a mapping’s keys can be any of primitives, structs, and even other mappings.
+
+#### Defining a map
+```solidity
+mapping(address => uint256) public balances;
+```
+
