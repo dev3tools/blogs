@@ -1,5 +1,5 @@
 ---
-title: Introduction to solidity
+title: 1. Introduction to solidity
 date: 2022-12-25
 permalink: basics/introduction/
 ---
