@@ -1,5 +1,5 @@
 ---
-title: 3. Variables and Data Types
+title: 2. Variables and Data Types
 date: 2022-12-27
 permalink: basics/variables_and_data_types/
 ---
