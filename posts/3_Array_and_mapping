@@ -69,5 +69,5 @@ Here `address` is the data type of the key and `uint256` is the data type of val
 
 #### Storing a value in map
 ```solidity
-// coming soon
+// coming soon 
 ```
