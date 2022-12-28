@@ -65,4 +65,4 @@ It lets you to store values in a key-value fashion. It is similar to hashtables,
 ```solidity
 mapping(address => uint256) public balances;
 ```
-
+Here `address` is the data type of the key and `uint256` is the data type of value. `balances`is the name of the mapping
