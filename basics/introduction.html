@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>1. Introduction to solidity</title>
+    <meta name="description" content="desc"/>
+    <meta name="keywords" content="blockchain,ethereum,web3,solidity"/>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Alegreya:400,400i|Lato:400,400i,700,900|Roboto+Mono:400,300">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/shades-of-purple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://dev3.tools/blogs/css/normalize.css"/>
+    <link rel="stylesheet" href="https://dev3.tools/blogs/css/theme.css"/>
+
+    <script type="text/javascript" src="https://dev3.tools/blogs/js/highlight.min.js"></script>
+    <script type="text/javascript" src="https://dev3.tools/blogs/js/solidity.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav__left">
+        <a href="/">Home</a>
+        <a href="https://dev3.tools/blogs">List Blogs</a>
+    </div>
+    <div class="nav__right">
+        <a target="_blank" href="https://github.com/SauravKanchan" class="link-github">GitHub</a>
+        <a target="_blank" href="https://twitter.com/sauravnk30" class="link-twitter">Twitter</a>
+        <a href="mailto:sauravnk30@gmail.com" class="link-email">Email</a>
+    </div>
+</nav>
+
+<article class="mar-b-7">
+    <header class="text-center">
+        <time class="mar-b-6" datetime="Sun, December 25, 2022">Sun, December 25, 2022</time>
+        <h1 class="mar-b-7">1. Introduction to solidity</h1>
+    </header>
+    <h2 id="whatissolidity">What is solidity?</h2>
+<p><a href="https://docs.soliditylang.org/">Solidity</a> is an object-oriented, high-level language for implementing smart contracts for ethereum blockchain and other EVM compatible chains. 
+This tutorial will deal with 0.8.17 version of solidity, which is as of now the latest version of solidity</p>
+<h2 id="whatisremix">What is remix?</h2>
+<p><a href="https://remix.ethereum.org/">Remix</a> is a Solidity IDE that’s used to write, compile and debug Solidity code. In this tutorial we will be using <a href="https://remix.ethereum.org/">remix</a> to develope our smart contract</p>
+<h3 id="startingwithnewcontract">Starting with new contract</h3>
+<p>Click on the contracts folder and then click on the new file button on top right</p>
+<p><img src="../static/new_file.png"
+     alt="New file"/></p>
+<p>Let our new file name be <code>Counter.sol</code>. Here <code>.sol</code> is the file extension used for solidity file and capital letter is used for file names. After creating the file our folder should look something like this</p>
+<p><img src="../static/initial_folder.png"
+     alt="initial folder"/></p>
+<p>Let's begin writing our smart contract.</p>
+<pre><code class="solidity language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+</code></pre>
+<p>Here first line indicates the license used by our smart contract. It's kind of optional your code will still run if you don't mention it. <code>//</code> indicates a comment, hence the license which we mentioned is just a comment. </p>
+<p><code>pragma solidity ^0.8.17</code> tells which version of compiler whould be used to compile the code here compiler version mentioned is <code>0.8.17</code> and <code>^</code> symbol tells that any version which is above the specified version can be used to compile the code. </p>
+<p>Let's create the contract</p>
+<pre><code class="solidity language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+contract Counter {
+    // your code goes here
+}
+</code></pre>
+<p>Here contract is kind of a class where we can define various functions inside it and we can also inherit from other contracts. <code>Counter</code> is the name of the contract and as per convention it should match the file name.</p>
+<p>Lets make a variable inside this contract</p>
+<pre><code class="solidity language-solidity">contract Counter {
+    uint public count;
+}
+</code></pre>
+<ul>
+<li><code>uint</code> represents unsigned integer i.e integer without any sign, hence it can only store positive intgeres.</li>
+<li><code>public</code> is the visiblity of the variable. We will discuss more about visiblity in upcoming sections. For now just imagine <code>public</code> keyword as the name suggest it's public and it doesn't have any restriction on who can view it. </li>
+<li><code>count</code> is the name of the variable. </li>
+</ul>
+<blockquote>
+  <p>Note: <code>count</code> here is a state variable. We will discuss about variable scope in upcoming chapters</p>
+</blockquote>
+<p>In order to fetch and set the count values lets write getter and setter function.</p>
+<pre><code class="solidity language-solidity">function getCount() public view returns(uint) {
+    return count;
+}
+</code></pre>
+<ul>
+<li><code>function</code> keyword used to define the function.</li>
+<li><code>getCount</code> name of the function</li>
+<li><code>public</code> visiblity/access type</li>
+<li><code>view</code> it refers to state mutablity. We will visit this topic later</li>
+<li><code>returns</code> tells about return type of the function. In our case the return type was uint.</li>
+</ul>
+<pre><code class="solidity language-solidity">function setCount(uint _count) public {
+    count = _count;
+}
+</code></pre>
+<ul>
+<li><code>uint _count</code> is the parameter to setCount function. <code>_count</code> is the name of the parameter whereas <code>uint</code> is the type
+We are setting our global state variable count with the value provided by the user.</li>
+</ul>
+<p>Entire code will look like this</p>
+<pre><code class="solidity language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+contract Counter {
+    uint public count;
+
+    function getCount() public view returns(uint) {
+        return count;
+    }
+
+    function setCount(uint _count) public {
+       count = _count;
+    }
+}
+</code></pre>
+<h3 id="howtorunthecode">How to run the code</h3>
+<p>There are 2 steps to run the code. </p>
+<ol>
+<li>Compile</li>
+<li>Deploy</li>
+</ol>
+<h4 id="1compile">1. Compile</h4>
+<p>In order to compile click on compile option at the left side of the screen</p>
+<p><img src="../static/compile_buton.png"
+     alt="compile buton"/></p>
+<p>After clicking on the compile button, compile tab will open.</p>
+<p><img src="../static/compile screen.png"
+     alt="compile screen"/></p>
+<ol>
+<li>Select the compiler version from the drop down</li>
+<li>Click auto compile (optional, if you turn on this option then you can skip this step for future deployments)</li>
+<li>Select the contract to compile.(In our example we only have one contract hence you will only see one contract)</li>
+<li>Click compile button</li>
+</ol>
+<p>Compiler converts our human readable code to machine level code which can be read by EVM. </p>
+<h4 id="2deploy">2. Deploy</h4>
+<p>Click on deploy screen which is at left side of the screen.</p>
+<p><img src="../static/deploy_section.png"
+     alt="deploy"/></p>
+<p>After selecting the tab you will see below screen</p>
+<p><img src="../static/deploy_screen.png"
+     alt="deploy"/></p>
+<ol>
+<li><code>Environment</code> tells where you want to deploy your contract. Basically here you can select the chain you want your contracts to deployed on. For now select Remix VM, it's a virtual blockchain which is running your client(browser), this is used while developing the code. </li>
+<li><code>Accounts</code> this are test accounts which are available in selcted blockchain. </li>
+<li><code>Contracts</code> here you select the contracts which you want to deploy</li>
+<li><code>Deploy</code> button used to deploy the contracts</li>
+</ol>
+<p>Once you click on the deploy button you will see something like this
+<img src="../static/deployed_contract_minimize.png"
+     alt="deploy"/>
+Click <code>&gt;</code> button to expand the deployed contracts and you will see all the functions avaialble</p>
+<p><img src="../static/contracts_interact.png"
+     alt="contract"/></p>
+<p>Here orange denotes setter function and blue indicates getter function. You may be wondering about the count function, I will address this little later.</p>
+<ul>
+<li>In order to call a setter function simply pass the parameter value <code>_count</code> </li>
+<li>In bottom right side of the screen you can see detail regarding the transaction. One very important thing to note here is <strong>Only setter functions requires a blockchain transaction</strong>. Setting a state requires a blockchain chain transaction and it costs transaction fees.</li>
+<li>In order to call getter function you simply click on the function name and getter function do not require any transaction.</li>
+</ul>
+<p>Now let's discuss about elephant in the room i.e is count function. As count variable was public, solidity compiler when compiling the smart contract it created a getter function for this public variable. In general every variable in smart contract that are public don't require any additional getter function solidity by defaults makes a public funtion with same variable name for you.</p>
+<p>So we can get rid of our getCount function and our final contract will look like this. </p>
+<pre><code class="solidity language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+contract Counter {
+    uint public count;
+
+    function setCount(uint _count) public {
+       count = _count;
+    }
+}
+</code></pre>
+</article>
+
+
+    <section id="mc_embed_signup" class="mar-tb-7">
+        <div class="mc-title-container">
+            <span class="mc-title-container__main">Subscribe for the Newsletter</span>
+            <span class="mc-title-container__sub">Join 2,000+ subscribers</span>
+        </div>
+        <form
+                class="mc-form"
+                action="https://www.getrevue.co/profile/roadmapsh/add_subscriber"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                target="_blank"
+                novalidate=""
+        >
+            <input class="mc-form__email" type="email" value="" name="member[email]" id="mce-EMAIL"
+                   placeholder="Enter your email"
+                   spellcheck="false">
+            <button class="mc-form__button" type="submit" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
+        </form>
+    </section>
+
+
+<footer class="text-center mar-tb-6">
+    © 2022 Dev3 Tools, unless otherwise stated.
+</footer>
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>
+

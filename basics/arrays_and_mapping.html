@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>3. Arrays and mapping</title>
+    <meta name="description" content="desc"/>
+    <meta name="keywords" content="blockchain,ethereum,web3,solidity"/>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Alegreya:400,400i|Lato:400,400i,700,900|Roboto+Mono:400,300">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/shades-of-purple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://dev3.tools/blogs/css/normalize.css"/>
+    <link rel="stylesheet" href="https://dev3.tools/blogs/css/theme.css"/>
+
+    <script type="text/javascript" src="https://dev3.tools/blogs/js/highlight.min.js"></script>
+    <script type="text/javascript" src="https://dev3.tools/blogs/js/solidity.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav__left">
+        <a href="/">Home</a>
+        <a href="https://dev3.tools/blogs">List Blogs</a>
+    </div>
+    <div class="nav__right">
+        <a target="_blank" href="https://github.com/SauravKanchan" class="link-github">GitHub</a>
+        <a target="_blank" href="https://twitter.com/sauravnk30" class="link-twitter">Twitter</a>
+        <a href="mailto:sauravnk30@gmail.com" class="link-email">Email</a>
+    </div>
+</nav>
+
+<article class="mar-b-7">
+    <header class="text-center">
+        <time class="mar-b-6" datetime="Wed, December 28, 2022">Wed, December 28, 2022</time>
+        <h1 class="mar-b-7">3. Arrays and mapping</h1>
+    </header>
+    <p>In this section we will learn how to use arrays and mapping in smart contract. </p>
+<h2 id="arrays">Arrays</h2>
+<p>There two main types of arrays in Solidity are the fixed-size array and the dynamic-sized array. Fixed-size arrays are passed by value and dynamic-sized arrays are passed by reference</p>
+<h4 id="defininganarray">Defining an array</h4>
+<pre><code class="solidity language-solidity">string[5] public fixedArray;  // fixed array
+uint[] public dynamicArray; // dynamic array
+</code></pre>
+<h4 id="addingvaluesintoarray">Adding values into array</h4>
+<pre><code class="solidity language-solidity">function add(string memory fix, uint dynamic) public {
+    // storing values of fixed array
+    fixedArray[0] = fix;
+    fixedArray[1] = "some";
+    fixedArray[2] = "random";
+    fixedArray[3] = "value";
+
+    // storing value of dynamic array
+    dynamicArray.push(dynamic);
+    // push method only works with dynamic array and not fixed array
+}
+</code></pre>
+<h4 id="initializingarraywithdefaultvalues">Initializing array with default values</h4>
+<pre><code class="solidity language-solidity">string[3] fixedArray = ["a", "b", "c"]; // Fixed sized string array
+fixedArray.push("abc"); // Won't work for fixed size arrays.
+
+String[] dynamicArray =["chainlink", "oracles"]; /// Dynamic sized array
+dynamicArray.push("rocks");  // Works.
+</code></pre>
+<h4 id="lengthofanarray">Length of an array</h4>
+<pre><code class="solidity language-solidity">String[] dynamicArray =["chainlink", "oracles"]; /// Dynamic sized array
+
+uint length = dynamicArray.length // this will store length of an array, which is 2 in our case
+</code></pre>
+<h4 id="deleteanelement">Delete an element</h4>
+<p>We have <code>delete</code> keyword in solidity, but it's kind of misleading, instead of deleting the element what it does is it replaces the value by <code>ZeroValue</code></p>
+<p>Example:</p>
+<pre><code>String[] dynamicArray =["chainlink", "oracles"]; /// Dynamic sized array
+
+delete dynamicArray[0]
+</code></pre>
+<p>Now instead of deleting the element here what it does is replace <code>"chainlink"</code> value with <code>""</code>. And array length also remains unchanged i.e 2</p>
+<h2 id="mapping">Mapping</h2>
+<p>It lets you to store values in a key-value fashion. It is similar to hashtables, dictionaries or JavaScript objects and maps, but with a little less functionality. There are restrictions on the kinds of data types you can have as keys, which you can read about <a href="https://docs.soliditylang.org/en/v0.8.17/types.html#mapping-types">here</a>. The data types associated with a mapping’s keys can be any of primitives, structs, and even other mappings.</p>
+<h4 id="definingamap">Defining a map</h4>
+<pre><code class="solidity language-solidity">mapping(address =&gt; uint256) public balances;
+</code></pre>
+<p>Here <code>address</code> is the data type of the key and <code>uint256</code> is the data type of value. <code>balances</code>is the name of the mapping</p>
+<h4 id="storingavalueinmap">Storing a value in map</h4>
+<pre><code class="solidity language-solidity">// coming soon 
+</code></pre>
+</article>
+
+
+    <section id="mc_embed_signup" class="mar-tb-7">
+        <div class="mc-title-container">
+            <span class="mc-title-container__main">Subscribe for the Newsletter</span>
+            <span class="mc-title-container__sub">Join 2,000+ subscribers</span>
+        </div>
+        <form
+                class="mc-form"
+                action="https://www.getrevue.co/profile/roadmapsh/add_subscriber"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                target="_blank"
+                novalidate=""
+        >
+            <input class="mc-form__email" type="email" value="" name="member[email]" id="mce-EMAIL"
+                   placeholder="Enter your email"
+                   spellcheck="false">
+            <button class="mc-form__button" type="submit" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
+        </form>
+    </section>
+
+
+<footer class="text-center mar-tb-6">
+    © 2022 Dev3 Tools, unless otherwise stated.
+</footer>
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>
+

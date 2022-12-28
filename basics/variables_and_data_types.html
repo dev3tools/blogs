@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>2. Variables and Data Types</title>
+    <meta name="description" content="desc"/>
+    <meta name="keywords" content="blockchain,ethereum,web3,solidity"/>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Alegreya:400,400i|Lato:400,400i,700,900|Roboto+Mono:400,300">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/shades-of-purple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://dev3.tools/blogs/css/normalize.css"/>
+    <link rel="stylesheet" href="https://dev3.tools/blogs/css/theme.css"/>
+
+    <script type="text/javascript" src="https://dev3.tools/blogs/js/highlight.min.js"></script>
+    <script type="text/javascript" src="https://dev3.tools/blogs/js/solidity.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav__left">
+        <a href="/">Home</a>
+        <a href="https://dev3.tools/blogs">List Blogs</a>
+    </div>
+    <div class="nav__right">
+        <a target="_blank" href="https://github.com/SauravKanchan" class="link-github">GitHub</a>
+        <a target="_blank" href="https://twitter.com/sauravnk30" class="link-twitter">Twitter</a>
+        <a href="mailto:sauravnk30@gmail.com" class="link-email">Email</a>
+    </div>
+</nav>
+
+<article class="mar-b-7">
+    <header class="text-center">
+        <time class="mar-b-6" datetime="Tue, December 27, 2022">Tue, December 27, 2022</time>
+        <h1 class="mar-b-7">2. Variables and Data Types</h1>
+    </header>
+    <p>In this blog we will discuss about variables in solidity. Variables are the names you give to data locations which are used to store values in a smart contract.</p>
+<h2 id="typesofvariable">Types of variable</h2>
+<ol>
+<li>State variable</li>
+<li>Local variable</li>
+<li>Global variable</li>
+</ol>
+<h4 id="1statevariable">1. State variable</h4>
+<p>Store permanent data in the smart contract (referred to as persistent state) by recording the values on the blockchain. These are not defined in any function it's outside a function. </p>
+<h4 id="2localvariable">2. Local variable</h4>
+<p>These variables are generally defined inside a function and cannot be accessed from outside that function’s scope. These are “transient” pieces of data that hold information for short periods of time while running computations. These values are not stored permanently on the blockchain.</p>
+<h4 id="3globalvariables">3. Global variables</h4>
+<p>These variables and functions are “injected” into your code by Solidity, and made available without the need to specifically create or import them from anywhere. These provide information about the blockchain environment the code is running on and also include utility functions for general use in the program. Global variables aren’t declared by you - they are “magically” available for you to use.</p>
+<h4 id="varibaleexample">Varibale example</h4>
+<pre><code class="solidity language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;
+
+contract Variable {
+    uint public stateV;  // &lt;----- State variable
+
+    function setStateVariable(uint _count) public {
+       stateV = _count; 
+    }
+
+    function localVariable() public pure returns(uint) {
+        uint localV = 23; // &lt;----- Local variable
+        return localV;
+    }
+
+    function globalVariable() public view returns(address) {
+        return msg.sender; // &lt;----- Global variable
+    }
+}
+</code></pre>
+<ul>
+<li><p>In our example public <code>stateV</code> is a state variable and entire contract can read and write the value of <code>stateV</code></p></li>
+<li><p><code>localV</code> is our local variable and it's scope is defined only inside function <code>localVariable</code>. Only code which is inside function <code>localVariable</code> will be able to access it.</p></li>
+<li><p><code>msg.sender</code> is our global variable, we haven't declared and it's decalred by solidity itself and nobody can edit this variable. We will discuss about <code>msg.sender</code> further down the course, for now assume that it's a variable which has information about the caller of function.</p></li>
+</ul>
+<h2 id="soliditydatatypes">Solidity Data Types</h2>
+<p>Solidity is a statically typed language, which implies that the type of each of the variables should be specified. Data types allow the compiler to check the correct usage of the variables. The declared types have some default values called Zero-State, for example for bool the default value is False. Likewise other statically typed languages Solidity has Value types and Reference types. Don't worry if you dont get the difference between Value and Reference types we will revesit this topic when we learn about storage slots (how data are stored in smart contract)</p>
+<h4 id="valuetypes">Value Types</h4>
+<p>Value-type variables store their own data. These are the basic data types provided by solidity. These types of variables are always passed by value. The variables are copied wherever they are used in function arguments or assignments. Value type data types in solidity are listed below: </p>
+<p>| Type      | Description | Default |
+| ----------- | ----------- | ----------- |
+| Boolean      | Stores only two values True or False       | false |
+| Integer   | Stores integer values, int and uint are used to declare signed and unsigned integers respectively. To specify the different sizes, we have keywords like uint8 upto uint256, that is of 8 to 256 bits. uint8 value ranges from 0 - 255 (2^8-1), as 8bits can only store 2^8 values       |0|
+| Address      |  Address hold a 20-byte value which represents the size of an  Ethereum address. Address is the user's identity in a blockchain, it's similar to username in traditional system | 0x000…000 |
+| Bytes      |  Although bytes are similar to strings, there are some differences between them. bytes used to store a fixed-sized character set while the string is used to store the character set equal to or more than a byte. The length of bytes is from 1 to 32, while the string has a dynamic length.  | 0x0 |
+| Enums      |  It is used to create user-defined data types, used to assign a name to an integral constant which makes the contract more readable, maintainable, and less prone to errors. Options of enums can be represented by unsigned integer values starting from 0.  | 0 (first option) |</p>
+<p>Example of a contract using different variable types</p>
+<pre><code class="solidity language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;   
+
+// Creating a contract
+contract Types {   
+
+    // Initializing Bool variable
+    bool public boolean = true;
+
+    // Initializing Integer variable
+    int32 public int_var = -60313;
+
+    //  Initializing String variable
+    string public str = "Dev3Tools";
+
+    // Initializing Byte variable
+    bytes1 public b = "a";
+
+    // Defining an enumerator
+    enum my_enum { dev, three , tools } 
+
+    // Defining a function to return
+    // values stored in an enumerator
+    function Enum() public pure returns(
+      my_enum) {   
+        return my_enum.tools;   
+    }   
+}
+</code></pre>
+<p>Output:</p>
+<p><img src="../static/value_type_variables.png"
+     alt="value_type_variables"/></p>
+<h4 id="referencetypes">Reference Types</h4>
+<p>Reference type variables store the location of the data. They don’t share the data directly. With the help of reference type, two different variables can refer to the same location where any change in one variable can affect the other one. Reference types in solidity are listed below: 
+| Type      | Description |
+| ----------- | ----------- |
+| Arrays      | An array is a group of variables of the same data type in which the variable has a particular location known as an index. By using the index location, the desired variable can be accessed. The array size can be fixed or dynamic.
+| Strings      | Strings are like arrays of characters. When we use them, we might occupy bigger or shorter storage space.
+| Struct      | Solidity allows users to create and define their own type in the form of structures. The structure is a group of different types even though it’s not possible to contain a member of its own type. The structure is a reference type variable that can contain both value type and reference type
+| Mapping      | Mapping is the most used reference type, that stores the data in a key-value pair where a key can be any value type. It is like a hash table or dictionary as in any other programming language, where data can be retrieved by key.</p>
+<p>Example</p>
+<pre><code class="solidity language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.17;   
+
+// Creating a contract
+contract ReferenceTypes {
+
+    // Defining an array   
+    uint[5] public array
+      = [uint(1), 2, 3, 4, 5] ;
+
+    // Defining a Structure
+    struct student {
+        string name;
+        string subject;
+        uint8 marks;
+    }
+
+    // Creating a structure object
+    student public std1;
+
+    // Defining a function to return
+    // values of the elements of the structure
+    function structure() public returns(
+      string memory, string memory, uint){
+        std1.name = "John";
+        std1.subject = "Chemistry";
+        std1.marks = 88;
+        return (
+          std1.name, std1.subject, std1.marks);
+    }
+
+    // Creating a mapping
+    mapping (address =&gt; student) result;
+    address[] student_result;
+}
+</code></pre>
+<p><img src="../static/reference_type_variable.png"
+     alt="reference_type_variable"/></p>
+</article>
+
+
+    <section id="mc_embed_signup" class="mar-tb-7">
+        <div class="mc-title-container">
+            <span class="mc-title-container__main">Subscribe for the Newsletter</span>
+            <span class="mc-title-container__sub">Join 2,000+ subscribers</span>
+        </div>
+        <form
+                class="mc-form"
+                action="https://www.getrevue.co/profile/roadmapsh/add_subscriber"
+                method="post"
+                id="mc-embedded-subscribe-form"
+                name="mc-embedded-subscribe-form"
+                target="_blank"
+                novalidate=""
+        >
+            <input class="mc-form__email" type="email" value="" name="member[email]" id="mce-EMAIL"
+                   placeholder="Enter your email"
+                   spellcheck="false">
+            <button class="mc-form__button" type="submit" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
+        </form>
+    </section>
+
+
+<footer class="text-center mar-tb-6">
+    © 2022 Dev3 Tools, unless otherwise stated.
+</footer>
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>
+
